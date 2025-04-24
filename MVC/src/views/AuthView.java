@@ -5,7 +5,6 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -22,17 +21,21 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
 import models.AuthModel;
 
 public class AuthView 
 {
 	Font label = new Font("Arial", Font.BOLD, 22);
-	Border redondo = BorderFactory.createLineBorder(Color.WHITE, 4, true);
 	Font txtBox = new Font("SansSeriff", Font.PLAIN, 30);
+
+	Border redondo = BorderFactory.createLineBorder(Color.WHITE, 4, true);
+	
 	Color verdeAzulado = new Color(54, 84, 79);
 	Color grisBajo = new Color(77, 77, 77);
+	
 	LineBorder bordeado = new LineBorder(Color.BLACK, 3);
+	
+	JFrame frame;
 	
 	AuthModel funtions;
 	
@@ -43,7 +46,7 @@ public class AuthView
 	
 	public void login()
 	{		
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		frame.setTitle("Programa");
 		frame.setVisible(true);
 		frame.setSize(1024, 740);
@@ -57,7 +60,6 @@ public class AuthView
 		fondoLogin.setOpaque(true);
 		fondoLogin.setLayout(null);
 		frame.add(fondoLogin);
-		
 		
 		JPanel login = new JPanel();
 		login.setBounds(177, 0, 670, 720);
@@ -236,7 +238,9 @@ public class AuthView
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-//				goTo("register");	
+				frame.getContentPane().removeAll();
+				frame.setVisible(false);
+				register();
 			}
 		});;
 		login.add(registro);
@@ -301,11 +305,21 @@ public class AuthView
 	
 	public void register()
 	{
+		frame = new JFrame();
+		frame.setTitle("Programa");
+		frame.setVisible(true);
+		frame.setSize(1024, 740);
+		frame.setResizable(false);
+		frame.setLayout(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		
 		JPanel fondoRegistro = new JPanel();
 		fondoRegistro.setBounds(0, 0, 1024, 720);
 		fondoRegistro.setOpaque(true);
 		fondoRegistro.setBackground(new Color(41, 44, 55));
 		fondoRegistro.setLayout(null);
+		frame.add(fondoRegistro);
 		
 		JPanel registro = new JPanel();
 		registro.setBounds(177, 0, 670, 720);
@@ -382,6 +396,7 @@ public class AuthView
 		notif1.setOpaque(false);
 		notif1.setForeground(Color.WHITE);
 		notif1.setFont(new Font("Italic", Font.ITALIC, 20));
+		notif1.setFocusable(false);
 		registro.add(notif1);
 		
 		JCheckBox notif2 = new JCheckBox("Recibir notificaciones de alertas");
@@ -389,6 +404,7 @@ public class AuthView
 		notif2.setOpaque(false);
 		notif2.setForeground(Color.WHITE);
 		notif2.setFont(new Font("Italic", Font.ITALIC, 20));
+		notif2.setFocusable(false);
 		registro.add(notif2);
 		
 		JRadioButton aceptar = new JRadioButton("Acepto los terminos y condiciones");
@@ -396,6 +412,7 @@ public class AuthView
 		aceptar.setOpaque(false);
 		aceptar.setForeground(Color.WHITE);
 		aceptar.setFont(new Font("Italic", Font.ITALIC, 17));
+		aceptar.setFocusable(false);
 		registro.add(aceptar);
 		
 		JRadioButton rechazar = new JRadioButton("Rechazo los terminos y condiciones");
@@ -403,12 +420,12 @@ public class AuthView
 		rechazar.setOpaque(false);
 		rechazar.setForeground(Color.WHITE);
 		rechazar.setFont(new Font("Italic", Font.ITALIC, 17));
+		rechazar.setFocusable(false);
 		registro.add(rechazar);
 		
 		ButtonGroup termYCond = new ButtonGroup();
 		termYCond.add(aceptar);
 		termYCond.add(rechazar);
-		
 		
 		//CAJA DESPEGABLE
 		JComboBox <String> ubi = new JComboBox<String>();
@@ -417,6 +434,7 @@ public class AuthView
 		ubi.setFont(new Font("Plain", Font.PLAIN, 20));
 		ubi.setBackground(grisBajo);
 		ubi.setBorder(bordeado);
+		ubi.setFocusable(false);
 		ubi.addItem("Seleccione su ubicacion");
 		ubi.addItem("Camino Real");
 		ubi.addItem("Calafia");
@@ -433,21 +451,24 @@ public class AuthView
 		confirmar.setBackground(grisBajo);
 		confirmar.setBorderPainted(true);
 		confirmar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-		
+		confirmar.setFocusPainted(false);
 		confirmar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				String cadenaContraseña = new String(contraseña.getPassword());
+				String cadenaUsuario = new String(usuario.getText());
+				boolean verif1 = false, verif2 = false;
 				
-				if(usuario.getText().equals(""))
+				if(cadenaUsuario.equals(""))
 				{
 					usuario.setBorder(new LineBorder(Color.ORANGE, 4, true));
 				}
 				else
 				{
 					usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
+					verif1 = true;
 				}
 				
 				if(cadenaContraseña.equals(""))
@@ -457,12 +478,17 @@ public class AuthView
 				else
 				{
 					contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
+					verif2 = true;
+				}
+				
+				if(verif1 & verif2)
+				{
+					boolean user_Auth = funtions.regist(cadenaUsuario,cadenaContraseña); 
 				}
 				
 			}
 			
 		});
-		
 		registro.add(confirmar);
 		
 		JButton soporteTecnico = new JButton("Inicia sesion");
@@ -472,25 +498,29 @@ public class AuthView
 		soporteTecnico.setOpaque(false);
 		soporteTecnico.setBackground(new Color(54, 84, 79));
 		soporteTecnico.setBorder(null);
-		
+		soporteTecnico.setFocusPainted(false);
 		soporteTecnico.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{	
-//				goTo("login");
+				frame.getContentPane().removeAll();
+				frame.setVisible(false);
+				login();
 			}
 		});
-		
 		registro.add(soporteTecnico);
 		
 		//IMAGENES DE FONDO
-		JLabel imgFondo = new JLabel(new ImageIcon(AuthView.class.getResource("/images/fondoRegistro.jpg")));
+		JLabel imgFondo = new JLabel(new ImageIcon("images/fondoRegistro.jpg"));
 		imgFondo.setBounds(0, 0, 1024, 720);
 		fondoRegistro.add(imgFondo);
 		
-		JLabel imgLogin = new JLabel(new ImageIcon(AuthView.class.getResource("/images/registro.jpg")));
+		JLabel imgLogin = new JLabel(new ImageIcon("images/registro.jpg"));
 		imgLogin.setBounds(0, 0, 670, 720);
-		registro.add(imgLogin);				
+		registro.add(imgLogin);
+		
+		frame.repaint();
+		frame.revalidate();
 	}
 }
