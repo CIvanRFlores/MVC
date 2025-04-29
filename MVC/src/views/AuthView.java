@@ -179,7 +179,7 @@ public class AuthView
 					
 				}else 
 				{	
-					usuario.setBorder(BorderFactory.createLineBorder(Color.green,2));
+					usuario.setBorder(BorderFactory.createLineBorder(Color.orange,2));
 					verif1 = true;
 				}
 				
@@ -187,7 +187,7 @@ public class AuthView
 					contraseña.setBorder(BorderFactory.createLineBorder(Color.red,2));
 				}else {
 					
-					contraseña.setBorder(BorderFactory.createLineBorder(Color.green,2));
+					contraseña.setBorder(BorderFactory.createLineBorder(Color.orange,2));
 					verif2 = true;
 				}
 				
@@ -198,6 +198,14 @@ public class AuthView
 					if(user_Auth) 
 					{	
 						JOptionPane.showMessageDialog(frame, "Bienvenido.");
+						
+						usuario.setBorder(BorderFactory.createLineBorder(Color.green,2));
+						
+						contraseña.setBorder(BorderFactory.createLineBorder(Color.green,2));
+						
+						frame.getContentPane().removeAll();
+						frame.setVisible(false);
+						home();
 						
 					}else 
 					{
@@ -522,5 +530,37 @@ public class AuthView
 		
 		frame.repaint();
 		frame.revalidate();
+	}
+	
+	public void home()
+	{
+		frame = new JFrame();
+		frame.setTitle("Programa");
+		frame.setVisible(true);
+		frame.setSize(1024, 740);
+		frame.setResizable(false);
+		frame.setLayout(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		
+		JPanel fondoInicio = new JPanel();
+		fondoInicio.setBounds(0, 0, 1024, 720);
+		fondoInicio.setOpaque(true);
+		fondoInicio.setBackground(new Color(200, 229, 187));
+		fondoInicio.setLayout(null);
+		frame.add(fondoInicio);
+		
+		JPanel inicio = new JPanel();
+		inicio.setBounds(177, 0, 670, 720);
+		inicio.setOpaque(true);
+		inicio.setBackground(new Color(117, 163, 97));
+		inicio.setLayout(null);
+		fondoInicio.add(inicio);
+		
+		JLabel home = new JLabel("INICIO");
+		home.setBounds(179, 0, 400, 100);
+		home.setForeground(Color.WHITE);
+		home.setFont(new Font("Tahoma", Font.ROMAN_BASELINE, 60));
+		inicio.add(home);
 	}
 }

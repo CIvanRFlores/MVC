@@ -1,5 +1,7 @@
 package models;
 
+import java.io.*;
+
 public class AuthModel 
 {
 	public AuthModel()
@@ -9,16 +11,39 @@ public class AuthModel
 	
 	public boolean authenticate (String user, String password)
 	{
-		if(user.equals("admin"))
-		{
-			if(password.equals("1234"))
+		try {
+
+			String direccion = AuthModel.class.getResource("/users.txt").toURI().getPath();
+			
+			BufferedReader fR = new BufferedReader (new FileReader(direccion));
+			
+			String i;
+			
+			while((i = fR.readLine()) != null)
 			{
-				return true;
+				String[] partes = i.split(", ");
+				
+				String u = partes[0];
+				String p = partes[1];
+				
+				if(user.equals(u))
+				{
+					if(password.equals(p))
+					{
+						return true;
+					}
+				}
 			}
-			else
-			{
-				return false;
-			}
+			
+			fR.close();
+			
+			return false;
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			System.out.println("Error");
 		}
 		
 		return false;
