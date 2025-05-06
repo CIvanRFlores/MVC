@@ -5,6 +5,8 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -26,7 +28,9 @@ import models.AuthModel;
 public class AuthView 
 {
 	Font label = new Font("Arial", Font.BOLD, 22);
+	Font label_2 = new Font("Arial", Font.BOLD, 16);
 	Font txtBox = new Font("SansSeriff", Font.PLAIN, 30);
+	Font txtBox_2 = new Font("SansSeriff", Font.PLAIN, 20);
 
 	Border redondo = BorderFactory.createLineBorder(Color.WHITE, 4, true);
 	
@@ -193,19 +197,18 @@ public class AuthView
 				
 				if(verif1 && verif2) 
 				{
-					boolean user_Auth = funtions.authenticate(cadenaUsuario,cadenaContraseña); 
+					boolean user_Auth = funtions.authenticate(cadenaUsuario,cadenaContraseña);
 					 
 					if(user_Auth) 
 					{	
-						JOptionPane.showMessageDialog(frame, "Bienvenido.");
-						
 						usuario.setBorder(BorderFactory.createLineBorder(Color.green,2));
 						
 						contraseña.setBorder(BorderFactory.createLineBorder(Color.green,2));
+
+						JOptionPane.showMessageDialog(frame, "Bienvenido.");
 						
-						frame.getContentPane().removeAll();
-						frame.setVisible(false);
-						home();
+						frame.dispose();	//FUNCION PARA DESTRUIR VENTANA
+						AuthView.this.home();	//LLAMADO DE LA NUEVA VENTANA
 						
 					}else 
 					{
@@ -342,78 +345,146 @@ public class AuthView
 		Registrarse.setFont(new Font("Tahoma", Font.ROMAN_BASELINE, 60));
 		registro.add(Registrarse);
 		
+		JLabel ingresaNombres = new JLabel("Nombres*");
+		ingresaNombres.setBounds(20, 95, 260, 45);
+		ingresaNombres.setForeground(Color.WHITE);
+		ingresaNombres.setFont(label_2);
+		registro.add(ingresaNombres);
+		
+		JTextField nombres = new JTextField();
+		nombres.setBounds(20, 130, 245, 40);
+		nombres.setForeground(Color.WHITE);
+		nombres.setOpaque(true);
+		nombres.setBackground(grisBajo);
+		nombres.setBorder(bordeado);
+		nombres.setFont(txtBox_2);
+		registro.add(nombres);
+		
+		JLabel ingresaApellido_P = new JLabel("Apellido paterno*");
+		ingresaApellido_P.setBounds(285, 95, 260, 45);
+		ingresaApellido_P.setForeground(Color.WHITE);
+		ingresaApellido_P.setFont(label_2);
+		registro.add(ingresaApellido_P);
+		
+		JTextField apellido_P = new JTextField();
+		apellido_P.setBounds(285, 130, 160, 40);
+		apellido_P.setForeground(Color.WHITE);
+		apellido_P.setOpaque(true);
+		apellido_P.setBackground(grisBajo);
+		apellido_P.setBorder(bordeado);
+		apellido_P.setFont(txtBox_2);
+		registro.add(apellido_P);
+		
+		JLabel ingresaApellido_M = new JLabel("Apellido materno*");
+		ingresaApellido_M.setBounds(465, 95, 260, 45);
+		ingresaApellido_M.setForeground(Color.WHITE);
+		ingresaApellido_M.setFont(label_2);
+		registro.add(ingresaApellido_M);
+		
+		JTextField apellido_M = new JTextField();
+		apellido_M.setBounds(465, 130, 160, 40);
+		apellido_M.setForeground(Color.WHITE);
+		apellido_M.setOpaque(true);
+		apellido_M.setBackground(grisBajo);
+		apellido_M.setBorder(bordeado);
+		apellido_M.setFont(txtBox_2);
+		registro.add(apellido_M);
+		
+		JLabel ingresaEmpresa = new JLabel("Empresa*");
+		ingresaEmpresa.setBounds(20, 175, 240, 45);
+		ingresaEmpresa.setForeground(Color.WHITE);
+		ingresaEmpresa.setFont(label_2);
+		registro.add(ingresaEmpresa);
+		
+		JTextField empresa = new JTextField();
+		empresa.setBounds(20, 210, 290, 45);
+		empresa.setForeground(Color.WHITE);
+		empresa.setOpaque(true);
+		empresa.setBackground(grisBajo);
+		empresa.setBorder(bordeado);
+		empresa.setFont(txtBox_2);
+		registro.add(empresa);
+		
+		JLabel ingresaCargo = new JLabel("Cargo*");
+		ingresaCargo.setBounds(330, 175, 240, 45);
+		ingresaCargo.setForeground(Color.WHITE);
+		ingresaCargo.setFont(label_2);
+		registro.add(ingresaCargo);
+		
+		JTextField cargo = new JTextField();
+		cargo.setBounds(330, 210, 290, 45);
+		cargo.setForeground(Color.WHITE);
+		cargo.setOpaque(true);
+		cargo.setBackground(grisBajo);
+		cargo.setBorder(bordeado);
+		cargo.setFont(txtBox_2);
+		registro.add(cargo);
+		
 		JLabel ingresaUsuario = new JLabel("Nombre de usuario*");
-		ingresaUsuario.setBounds(20, 95, 260, 45);
+		ingresaUsuario.setBounds(20, 260, 240, 45);
 		ingresaUsuario.setForeground(Color.WHITE);
-		ingresaUsuario.setFont(label);
+		ingresaUsuario.setFont(label_2);
 		registro.add(ingresaUsuario);
 		
+		JTextField usuario = new JTextField();
+		usuario.setBounds(20, 295, 290, 45);
+		usuario.setForeground(Color.WHITE);
+		usuario.setOpaque(true);
+		usuario.setBackground(grisBajo);
+		usuario.setBorder(bordeado);
+		usuario.setFont(txtBox_2);
+		registro.add(usuario);
+		
+		JLabel ingresaCorreo = new JLabel("Correo electronico*");
+		ingresaCorreo.setBounds(330, 260, 240, 45);
+		ingresaCorreo.setForeground(Color.WHITE);
+		ingresaCorreo.setFont(label_2);
+		registro.add(ingresaCorreo);
+		
+		JTextField correo = new JTextField();
+		correo.setBounds(330, 295, 290, 45);
+		correo.setForeground(Color.WHITE);
+		correo.setOpaque(true);
+		correo.setBackground(grisBajo);
+		correo.setBorder(bordeado);
+		correo.setFont(txtBox_2);
+		registro.add(correo);
+		
 		JLabel ingresaContraseña = new JLabel("Contraseña*");
-		ingresaContraseña.setBounds(20, 200, 240, 45);
+		ingresaContraseña.setBounds(20, 340, 240, 45);
 		ingresaContraseña.setForeground(Color.WHITE);
-		ingresaContraseña.setFont(label);
+		ingresaContraseña.setFont(label_2);
 		registro.add(ingresaContraseña);
 		
-		JLabel biografia = new JLabel("Biografia*");
-		biografia.setBounds(284, 305, 110, 45);
-		biografia.setForeground(Color.WHITE);
-		biografia.setFont(label);
-		registro.add(biografia);
+		JPasswordField contraseña = new JPasswordField();
+		contraseña.setBounds(20, 375, 290, 45);
+		contraseña.setForeground(Color.WHITE);
+		contraseña.setOpaque(true);
+		contraseña.setBackground(grisBajo);
+		contraseña.setBorder(bordeado);
+		contraseña.setFont(txtBox_2);
+		registro.add(contraseña);
 		
-		JLabel pref = new JLabel("Peferencias*");
-		pref.setBounds(20, 445, 140, 45);
-		pref.setForeground(Color.WHITE);
-		pref.setFont(label);
-		registro.add(pref);
+		JLabel repetirContraseña = new JLabel("Repetir contraseña*");
+		repetirContraseña.setBounds(330, 340, 240, 45);
+		repetirContraseña.setForeground(Color.WHITE);
+		repetirContraseña.setFont(label_2);
+		registro.add(repetirContraseña);
+		
+		JPasswordField rContraseña = new JPasswordField();
+		rContraseña.setBounds(330, 375, 290, 45);
+		rContraseña.setForeground(Color.WHITE);
+		rContraseña.setOpaque(true);
+		rContraseña.setBackground(grisBajo);
+		rContraseña.setBorder(bordeado);
+		rContraseña.setFont(txtBox_2);
+		registro.add(rContraseña);
 		
 		JLabel contactaSoporte = new JLabel("¿Ya tienes una cuenta?");
 		contactaSoporte.setBounds(20, 630 , 250, 45);
 		contactaSoporte.setForeground(Color.WHITE);
 		contactaSoporte.setFont(new Font("Italic", Font.ITALIC, 19));
 		registro.add(contactaSoporte);
-		
-		JTextField usuario = new JTextField();
-		usuario.setBounds(20, 140, 480, 48);
-		usuario.setForeground(Color.WHITE);
-		usuario.setOpaque(true);
-		usuario.setBackground(grisBajo);
-		usuario.setBorder(bordeado);
-		usuario.setFont(txtBox);
-		registro.add(usuario);
-		
-		JPasswordField contraseña = new JPasswordField();
-		contraseña.setBounds(20, 245, 480, 48);
-		contraseña.setForeground(Color.WHITE);
-		contraseña.setOpaque(true);
-		contraseña.setBackground(grisBajo);
-		contraseña.setBorder(bordeado);
-		contraseña.setFont(txtBox);
-		registro.add(contraseña);
-		
-		JTextArea bio = new JTextArea();
-		bio.setBounds(20, 355, 630, 87);
-		bio.setForeground(Color.WHITE);
-		bio.setOpaque(true);
-		bio.setBackground(grisBajo);
-		bio.setBorder(bordeado);
-		bio.setFont(new Font("Plain", Font.PLAIN, 20));
-		registro.add(bio);
-		
-		JCheckBox notif1 = new JCheckBox("Recibir notificaciones de estado");
-		notif1.setBounds(20, 475, 320, 45);
-		notif1.setOpaque(false);
-		notif1.setForeground(Color.WHITE);
-		notif1.setFont(new Font("Italic", Font.ITALIC, 20));
-		notif1.setFocusable(false);
-		registro.add(notif1);
-		
-		JCheckBox notif2 = new JCheckBox("Recibir notificaciones de alertas");
-		notif2.setBounds(20, 505, 320, 45);
-		notif2.setOpaque(false);
-		notif2.setForeground(Color.WHITE);
-		notif2.setFont(new Font("Italic", Font.ITALIC, 20));
-		notif2.setFocusable(false);
-		registro.add(notif2);
 		
 		JRadioButton aceptar = new JRadioButton("Acepto los terminos y condiciones");
 		aceptar.setBounds(20, 555, 320, 45);
@@ -436,20 +507,21 @@ public class AuthView
 		termYCond.add(rechazar);
 		
 		//CAJA DESPEGABLE
-		JComboBox <String> ubi = new JComboBox<String>();
-		ubi.setBounds(400, 490, 250, 45);
-		ubi.setForeground(Color.WHITE);
-		ubi.setFont(new Font("Plain", Font.PLAIN, 20));
-		ubi.setBackground(grisBajo);
-		ubi.setBorder(bordeado);
-		ubi.setFocusable(false);
-		ubi.addItem("Seleccione su ubicacion");
-		ubi.addItem("Camino Real");
-		ubi.addItem("Calafia");
-		ubi.addItem("Peninsula Sur");
-		ubi.addItem("Valle del mezquite");
-		ubi.setSelectedItem(1);
-		registro.add(ubi);
+		JComboBox <String> ambito = new JComboBox<String>();
+		ambito.setBounds(20, 450, 250, 45);
+		ambito.setForeground(Color.WHITE);
+		ambito.setFont(new Font("Plain", Font.PLAIN, 20));
+		ambito.setBackground(grisBajo);
+		ambito.setBorder(bordeado);
+		ambito.setFocusable(false);
+		ambito.addItem("Ambito de la empresa");
+		ambito.addItem("Tecnologia");
+		ambito.addItem("Salud");
+		ambito.addItem("Educacion");
+		ambito.addItem("Comercio");
+		ambito.addItem("Otro....");
+		ambito.setSelectedItem(1);
+		registro.add(ambito);
 		
 		JButton confirmar = new JButton("Registrarse");
 		confirmar.setBounds(420, 604, 240, 70);
@@ -465,9 +537,67 @@ public class AuthView
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String cadenaContraseña = new String(contraseña.getPassword());
+				String cadenaNombres = new String(nombres.getText());
+				String cadenaApellidoP = new String(apellido_P.getText());
+				String cadenaApellidoM = new String(apellido_M.getText());
+				String cadenaEmpresa = new String(empresa.getText()); 
+				String cadenaCargo = new String(cargo.getText());
 				String cadenaUsuario = new String(usuario.getText());
-				boolean verif1 = false, verif2 = false;
+				String cadenaCorreo = new String (correo.getText());
+				String cadenaContraseña = new String (contraseña.getPassword());
+				String verifContraseña = new String (rContraseña.getPassword());
+				
+				boolean v1 = false, v2 = false, v3 = false, v4 = false, v5 = false, v6 = false, v7 = false, v8 = false, v9 = false, v10 = false, v11 = false;
+				
+				if(cadenaNombres.equals(""))
+				{
+					nombres.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					nombres.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v1 = true;
+				}
+				
+				if(cadenaApellidoP.equals(""))
+				{
+					apellido_P.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					apellido_P.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v2 = true;
+				}
+				
+				if(cadenaApellidoM.equals(""))
+				{
+					apellido_M.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					apellido_M.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v3 = true;
+				}
+				
+				if(cadenaEmpresa.equals(""))
+				{
+					empresa.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					empresa.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v4 = true;
+				}
+				
+				if(cadenaCargo.equals(""))
+				{
+					cargo.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					cargo.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v5 = true;
+				}
 				
 				if(cadenaUsuario.equals(""))
 				{
@@ -476,7 +606,17 @@ public class AuthView
 				else
 				{
 					usuario.setBorder(new LineBorder(Color.GREEN, 4, true));
-					verif1 = true;
+					v6 = true;
+				}
+				
+				if(cadenaCorreo.equals(""))
+				{
+					correo.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					correo.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v7 = true;
 				}
 				
 				if(cadenaContraseña.equals(""))
@@ -486,14 +626,54 @@ public class AuthView
 				else
 				{
 					contraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
-					verif2 = true;
+					v8 = true;
 				}
 				
-				if(verif1 & verif2)
+				if(verifContraseña.equals(""))
 				{
-					boolean user_Auth = funtions.regist(cadenaUsuario,cadenaContraseña); 
+					rContraseña.setBorder(new LineBorder(Color.RED, 4, true));
+				}
+				else if(verifContraseña.equals(cadenaContraseña))
+				{
+					rContraseña.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v9 = true;
+				}
+				else
+				{
+					rContraseña.setBorder(new LineBorder(Color.ORANGE, 4, true));	
 				}
 				
+				if(ambito.getSelectedIndex() == 0)
+				{
+					ambito.setBorder(new LineBorder(Color.ORANGE, 4, true));
+				}
+				else
+				{
+					ambito.setBorder(new LineBorder(Color.GREEN, 4, true));
+					v10 = true;
+				}
+
+				if(v1 & v1 & v3 & v4 & v5 & v6 & v7 & v8 & v9 & v10)
+				{
+					if(aceptar.isSelected())
+					{
+							try {
+								funtions.regist(cadenaNombres, cadenaApellidoP, cadenaApellidoM, cadenaEmpresa, cadenaCargo, cadenaUsuario, cadenaCorreo, cadenaContraseña, ambito.getSelectedItem().toString());
+								JOptionPane.showMessageDialog(frame, "Registro exitoso.");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}			
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(frame, "Debe aceptar Terminos y condiciones","Error de registro",JOptionPane.WARNING_MESSAGE);
+					}
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "LLene los campos correctamente","Error de registro",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 			
 		});

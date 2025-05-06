@@ -1,6 +1,7 @@
 package models;
 
 import java.io.*;
+import java.net.URISyntaxException;
 
 public class AuthModel 
 {
@@ -18,13 +19,14 @@ public class AuthModel
 			BufferedReader fR = new BufferedReader (new FileReader(direccion));
 			
 			String i;
-			
+						
 			while((i = fR.readLine()) != null)
 			{
-				String[] partes = i.split(", ");
+				String[] partes = i.split("\\|");
+												
+				String u = partes[6];
 				
-				String u = partes[0];
-				String p = partes[1];
+				String p = partes[8];
 				
 				if(user.equals(u))
 				{
@@ -49,10 +51,23 @@ public class AuthModel
 		return false;
 	}
 	
-	public boolean regist (String user, String password)
+	public void regist (String nombres, String apellidoP, String apellidoM, String empresa, String cargo, String usuario, String correo, String contraseña, String ambito) throws IOException
 	{
-		System.out.println("Usuario: " + user + "\nContraseña: " + password);
+		try {
+			String direccion = AuthModel.class.getResource("/users.txt").toURI().getPath();
+					
+			File archivo = new File(direccion);
+						
+			FileWriter escritura = new FileWriter(archivo, true);
+			
+			String txt = nombres + "|" + apellidoP + "|" + apellidoM + "|" + empresa + "|" + cargo + "|" + ambito + "|" + usuario + "|" + correo + "|" + contraseña;
+						
+			escritura.write(txt + "\n");
+			escritura.close();
+			
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 		
-		return false;
 	}
 }
